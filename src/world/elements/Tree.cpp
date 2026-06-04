@@ -21,7 +21,7 @@
 
 namespace nml::WorldElements {
 
-void Tree::Create(glm::vec3 position) {
+void Tree::Create(glm::vec3 position, glm::vec3 scale) {
     bool success;
     success = Crunch::Matrix::LoadModelData("assets/models/tree_pine.glb", tmp_vertices, tmp_indices);
     if (!success) {
@@ -34,6 +34,7 @@ void Tree::Create(glm::vec3 position) {
 
     // Set the position and scale of the tree
     mesh.setPosition(position);
+    mesh.setScale(scale);
 }
 
 Crunch::Mesh Tree::GetMesh() {

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "world/elements/Tree.hpp"
 #include <Application.hpp>
 #include <iostream>
 
@@ -42,9 +41,9 @@ int NMLApp::Init() {
     
     renderer.Init(vs, fs);
     camera.init(CRUNCH_CAMERA_TYPE_PERSPECTIVE, aspect, 45.f, 0.01f, 1000.f);
-    terrain.Init(renderer.shaderProgram);
+    // terrain.Init(renderer.shaderProgram);
 
-    std::vector<Crunch::Mesh> tmesh = terrain.Generate(01234567);
+    std::vector<Crunch::Mesh> tmesh = world.Generate_World_Meshes();
     for (const auto& tm : tmesh) {
         meshes.push_back(tm);
     }
@@ -53,7 +52,7 @@ int NMLApp::Init() {
     // fly_cam.Init(&camera, &window, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
 
     WorldElements::Tree tree;
-    tree.Create(glm::vec3(1.0f, 0, 0));
+    tree.Create(glm::vec3(1.0f, world.terrain.GetHeightAt(glm::vec2(1.0f, 0.0f)), 0.0f), glm::vec3(4.0f));
     meshes.push_back(tree.GetMesh());
 
     return 0;

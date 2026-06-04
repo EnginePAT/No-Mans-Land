@@ -17,8 +17,11 @@
 #ifndef TERRAIN_HPP
 #define TERRAIN_HPP
 
+#include <glm/glm.hpp>
 #include <cstdint>
 #include <Crunch/core/renderer/Mesh.hpp>
+
+#define SEED 01234567
 
 namespace nml {
 
@@ -28,8 +31,10 @@ private:
 public:
     void Init(uint32_t prog);
     std::vector<Crunch::Mesh> Generate(uint32_t seed);
+    float GetHeightAt(glm::vec2 position);
 
     Crunch::Mesh mesh;
+    uint32_t seed;
 };
 
 };          // namespace nml

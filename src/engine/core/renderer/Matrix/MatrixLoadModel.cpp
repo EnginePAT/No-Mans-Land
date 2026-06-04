@@ -102,7 +102,7 @@ bool LoadModelData(const std::string &path, std::vector<Crunch::Vertex> &outVert
     // Start traversing the hardware asset tree from the root base node
     ProcessAssimpNode(scene->mRootNode, scene, outVertices, outIndices);
 
-    std::printf("[Matrix HQ]: Successfully parsed model %s into Crunch::Vertex (%zu vertices, %zu indices)\n", 
+    std::printf("[Matrix]: Successfully parsed model %s into Crunch::Vertex (%zu vertices, %zu indices)\n", 
                 path.c_str(), outVertices.size(), outIndices.size());
 
     return true;

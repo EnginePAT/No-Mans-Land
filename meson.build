@@ -43,10 +43,11 @@ executable('no-mans-land',
         # No Mans Land (game code)
         'src/main.cpp',
         'src/Application.cpp',
-        'src/world/terrain.cpp',
+        'src/world/Terrain.cpp',
         'src/Update.cpp',
         'src/Render.cpp',
         'src/world/elements/Tree.cpp',
+        'src/world/World.cpp',
 
 
         'deps/glad/src/glad.c',

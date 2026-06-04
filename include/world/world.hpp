@@ -18,6 +18,7 @@
 #define WORLD_HPP
 
 
+#include "world/terrain.hpp"
 #include <Crunch/core/renderer/Mesh.hpp>
 #include <vector>
 
@@ -26,6 +27,7 @@ namespace nml {         // nml = No Mans Land
 class World {
 public:
     std::vector<Crunch::Mesh> Generate_World_Meshes();
+    Terrain terrain;
 };
 
 }           // namespace nml

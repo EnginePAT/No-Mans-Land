@@ -17,7 +17,8 @@
 #include <Crunch/core/FlyCamera.hpp>
 #include <Crunch/Noise.hpp>
 
-#include <world/terrain.hpp>
+#include <world/World.hpp>
+#include <world/elements/Tree.hpp>
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 800
@@ -32,7 +33,7 @@ private:
     Crunch::Camera camera;
     Crunch::Physics::PhysicsHandler physics;
 
-    nml::Terrain terrain;
+    nml::World world;
     // Crunch::FlyCamera fly_cam;
     Crunch::FirstPersonController fpc;
     std::vector<Crunch::Mesh> meshes;

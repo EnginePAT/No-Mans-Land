@@ -30,7 +30,7 @@ private:
     std::vector<uint32_t> tmp_indices;
 
 public:
-    void Create(glm::vec3 position);
+    void Create(glm::vec3 position, glm::vec3 scale);
     Crunch::Mesh GetMesh();
 };
 

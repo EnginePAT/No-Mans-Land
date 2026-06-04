@@ -16,7 +16,7 @@
  */
 #include <cstdint>
 #include <vector>
-#include <world/terrain.hpp>
+#include <world/Terrain.hpp>
 #include <Crunch/core/renderer/Matrix/MatrixSubdivide.hpp>
 #include <Crunch/core/renderer/Shapes.hpp>
 #include <Crunch/core/renderer/Mesh.hpp>
@@ -67,13 +67,14 @@ void Terrain::Init(uint32_t prog) {
     _prog = prog;
 }
 
-std::vector<Crunch::Mesh> Terrain::Generate(uint32_t seed) {
+std::vector<Crunch::Mesh> Terrain::Generate(uint32_t _seed) {
     // Generate the terrain
     // We will use the Noise module from CE3 to generate a heightmap
     // Later, we will load 'assets/heightmaps/heightmap-*.chunk' and use that to determine the heights
     //  then use FastNoiseLite to fill in the gaps
     Crunch::Shapes::Quad quad(8.0f, 8.0f, glm::vec3(0), glm::vec4(1.0f));
     std::vector<Crunch::Mesh> meshes;
+    seed = _seed;
 
     Crunch::Texture texture;
     if (!texture.load("assets/Ground.jpg")) {
@@ -101,6 +102,12 @@ std::vector<Crunch::Mesh> Terrain::Generate(uint32_t seed) {
     }
 
     return meshes;
+}
+
+float Terrain::GetHeightAt(glm::vec2 position) {
+
+    float height = nml::GetHeightAt(seed, position.x, position.y);
+    return height;
 }
 
 }
