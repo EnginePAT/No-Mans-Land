@@ -1,13 +1,5 @@
-# No-Mans-Land
-An open world game, combining Minecraft mechanics, with Rust/Tarkov/FS25/Arma graphics. Aim is to make it as AAA as possible, without using a commercial game engine.
-
-## TODO: Make the README.md more informative
-
-## Source File Header
-This header is to be used in every source file:
-```
 /*
- * Crunch Engine 3
+ * No Mans Land
  * Copyright 2026 Dodwell Industries
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,5 +14,21 @@ This header is to be used in every source file:
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-```
-You can adapt comments as required per language (ie. The /**/ for C, gets swapped out for '#' for Python or Meson)
+#ifndef WORLD_HPP
+#define WORLD_HPP
+
+
+#include <Crunch/core/renderer/Mesh.hpp>
+#include <vector>
+
+namespace nml {         // nml = No Mans Land
+
+class World {
+public:
+    std::vector<Crunch::Mesh> Generate_World_Meshes();
+};
+
+}           // namespace nml
+
+
+#endif      // WORLD_HPP

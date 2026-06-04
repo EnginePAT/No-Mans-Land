@@ -1,0 +1,41 @@
+Here is a clean, structured game overview designed to read like a high-level Game Design Document (GDD) summary. You can use this to keep your development focused or to pitch the concept down the road.
+
+GAME OVERVIEW: NO MAN’S LAND
+No Man’s Land is a persistent, multiplayer tactical survival simulation that fuses the unforgiving ballistic realism of Arma 3 and Escape from Tarkov with the total environmental and industrial freedom of Minecraft and Farming Simulator.
+
+Set on a massive, continuous global map, players deploy via airborne insertion into a dynamically changing world where heavy industry, survival logistics, and high-stakes military friction completely intertwine.
+
+I. Core Gameplay Pillars
+The Weight of Survival (First-Line vs. Second-Line): Combat and logistics are governed by physical encumbrance. Players carry immediate combat essentials (magazines, medical gear, explosives) in their lightweight body webbing. All heavy tools, raw resources, and long-term sustenance reside in a physical backpack. Carrying a heavy pack accelerates fatigue, hunger, and thirst. In an ambush, players must tactically "drop the ruck" to regain combat agility, risking their hard-earned haul if forced to retreat.
+
+Industrial Agency & Persistence: The world is a canvas. Players claim territory, harvest crops using heavy machinery, mine quarries for raw ore, and construct fortified compounds using a modular voxel building system. Artillery and explosives physically and permanently deform the terrain, creating organic tactical cover or disrupting logistics routes.
+
+The Unknown Frontier (Hybrid Procedural Generation): While the global macro geography (coastlines, mountain ranges, major cities) is static, every new game initialization deploys a unique micro-procedural layer. Boulder fields, dense forests, weather patterns, and abandoned ruins are randomized by a master seed, preventing map memorization and forcing genuine scouting and land navigation.
+
+No Handouts (Pure Barter Economy): There are no in-game menus, virtual shops, or gold economies. Value is dictated by true physical scarcity. To acquire a weapon, a vehicle part, or an explosive charge, players must scavenge abandoned structures, manufacture it themselves using built-in base infrastructure, or trade face-to-face with other players over WAN.
+
+II. The Core Gameplay Loop
+[ INSERTION ] ──> Parachute via C-130 into a dynamic, unknown Drop Zone (DZ).
+      │
+      ▼
+[ LOGISTICS ] ──> Clear land, cultivate crops, mine quarries, and manage fuel/water.
+      │
+      ▼
+[ FORTIFY   ] ──> Construct modular bases, dig trenches, and reinforce strategic chokepoints.
+      │
+      ▼
+[ FRICTION  ] ──> Defend resources against rival player factions in high-stakes milsim combat.
+      │
+      ▼
+[ ESCAPE/RE-ARM ] Drop the heavy ruck if ambushed, break contact, survive, and regroup.
+III. Environmental Adversaries
+Dynamic Soil Physics (Mud & Bogs): Weather is a mechanical threat. Heavy rain transforms dirt roads into deep mud. Multi-ton transport trucks and tractors will get physically bogged, forcing players to launch high-risk logistical rescue operations with winches and tow cables.
+
+Atmospheric Windows: Heavy fog, torrential rain, and scorching heat cycles dictate tactical operations. Thick fog blinds automated base defenses and snipers, opening a stealth window for lightweight raiding parties carrying dynamite.
+
+The Calendar (Seasons): Players must survive the calendar. Autumn requires aggressive harvesting and fuel stockpiling. Winter freezes water sources, hardens soil (halting digging/farming), and introduces deadly hypothermia, shifting the game into a brutal war of attrition.
+
+IV. Technical Architecture (Target)
+Phase 1 (Proof of Concept): Developed in Unity to rapidly iterate on weight-fatigue formulas, voxel terrain deformation feel, and the "quick-drop" backpack state machine.
+
+Phase 2 (Production): Custom engine built in C++ and OpenGL. Uses a seamless server-meshing grid to handle global WAN multiplayer, client-side prediction for ultra-responsive ballistics, and deterministic physics for heavy machinery and structural collapse.

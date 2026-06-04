@@ -1,11 +1,3 @@
-# No-Mans-Land
-An open world game, combining Minecraft mechanics, with Rust/Tarkov/FS25/Arma graphics. Aim is to make it as AAA as possible, without using a commercial game engine.
-
-## TODO: Make the README.md more informative
-
-## Source File Header
-This header is to be used in every source file:
-```
 /*
  * Crunch Engine 3
  * Copyright 2026 Dodwell Industries
@@ -22,5 +14,33 @@ This header is to be used in every source file:
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-```
-You can adapt comments as required per language (ie. The /**/ for C, gets swapped out for '#' for Python or Meson)
+#ifndef RENDERER3D_HPP
+#define RENDERER3D_HPP
+
+#include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <Crunch/core/renderer/Mesh.hpp>
+#include <Crunch/core/renderer/Shader.hpp>
+#include <Crunch/core/Camera.hpp>
+#include <Crunch/core/renderer/Matrix/Matrix.hpp>
+
+namespace Crunch {
+
+class Renderer3D {
+private:
+public:
+    bool Init(uint32_t vs, uint32_t fs);
+    void Draw(Matrix::RenderList* list);
+
+    unsigned int shaderProgram;
+    unsigned int vertexShader;
+    unsigned int fragmentShader;
+
+    unsigned int viewLoc;
+    unsigned int modlLoc;
+    unsigned int projLoc;
+};
+
+}
+
+#endif      // RENDERER3D_HPP

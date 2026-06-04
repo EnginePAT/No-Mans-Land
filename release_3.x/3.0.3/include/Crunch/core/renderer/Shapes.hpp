@@ -1,11 +1,3 @@
-# No-Mans-Land
-An open world game, combining Minecraft mechanics, with Rust/Tarkov/FS25/Arma graphics. Aim is to make it as AAA as possible, without using a commercial game engine.
-
-## TODO: Make the README.md more informative
-
-## Source File Header
-This header is to be used in every source file:
-```
 /*
  * Crunch Engine 3
  * Copyright 2026 Dodwell Industries
@@ -22,5 +14,30 @@ This header is to be used in every source file:
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-```
-You can adapt comments as required per language (ie. The /**/ for C, gets swapped out for '#' for Python or Meson)
+#ifndef SHAPES_HPP
+#define SHAPES_HPP
+
+#include <Crunch/core/renderer/Mesh.hpp>
+#include <cstdint>
+#include <vector>
+#include <glm/glm.hpp>
+
+namespace Crunch::Shapes {
+
+class Quad {
+public:
+    Quad(float w, float h, glm::vec3 p, glm::vec4 c);
+
+    float width;
+    float height;
+    glm::vec2 color;
+    glm::vec3 position;
+    glm::vec2 size;
+
+    std::vector<struct Crunch::Vertex> vertices;
+    std::vector<uint32_t> indices;
+};
+
+};
+
+#endif      // SHAPES_HPP

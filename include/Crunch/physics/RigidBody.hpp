@@ -1,11 +1,3 @@
-# No-Mans-Land
-An open world game, combining Minecraft mechanics, with Rust/Tarkov/FS25/Arma graphics. Aim is to make it as AAA as possible, without using a commercial game engine.
-
-## TODO: Make the README.md more informative
-
-## Source File Header
-This header is to be used in every source file:
-```
 /*
  * Crunch Engine 3
  * Copyright 2026 Dodwell Industries
@@ -22,5 +14,32 @@ This header is to be used in every source file:
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-```
-You can adapt comments as required per language (ie. The /**/ for C, gets swapped out for '#' for Python or Meson)
+#ifndef RIGID_BODY_HPP
+#define RIGID_BODY_HPP
+
+#include <glm/glm.hpp>
+#include <Crunch/physics/AABB.hpp>
+
+namespace Crunch::Physics {
+
+class RigidBody {
+public:
+    glm::vec3 position;
+    glm::vec3 velocity;
+    glm::vec3 acceleration;
+    glm::vec3 total_forces;
+
+    float mass;
+    float inv_mass;
+    float restitution;
+
+    AABB local_aabb;
+
+    RigidBody();
+    void ApplyForce(const glm::vec3& force);
+    AABB GetWorldAABB() const;
+};
+
+}
+
+#endif      // RIGID_BODY_HPP

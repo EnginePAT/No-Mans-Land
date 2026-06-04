@@ -1,11 +1,3 @@
-# No-Mans-Land
-An open world game, combining Minecraft mechanics, with Rust/Tarkov/FS25/Arma graphics. Aim is to make it as AAA as possible, without using a commercial game engine.
-
-## TODO: Make the README.md more informative
-
-## Source File Header
-This header is to be used in every source file:
-```
 /*
  * Crunch Engine 3
  * Copyright 2026 Dodwell Industries
@@ -22,5 +14,35 @@ This header is to be used in every source file:
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-```
-You can adapt comments as required per language (ie. The /**/ for C, gets swapped out for '#' for Python or Meson)
+#ifndef WINDOW_HPP
+#define WINDOW_HPP
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+
+namespace Crunch {
+
+class Window {
+private:
+    int _width;
+    int _height;
+    const char* _title;
+
+    GLFWwindow* _window;
+
+    static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+public:
+    bool init();
+    void create(int w, int h, const char* title);
+    bool windowShouldClose();
+    void update();
+    void clear(glm::vec4 color);
+    void terminate();
+
+    GLFWwindow* getWindow();
+};
+
+};
+
+#endif      // WINDOW_HPP

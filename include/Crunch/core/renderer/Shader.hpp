@@ -1,11 +1,3 @@
-# No-Mans-Land
-An open world game, combining Minecraft mechanics, with Rust/Tarkov/FS25/Arma graphics. Aim is to make it as AAA as possible, without using a commercial game engine.
-
-## TODO: Make the README.md more informative
-
-## Source File Header
-This header is to be used in every source file:
-```
 /*
  * Crunch Engine 3
  * Copyright 2026 Dodwell Industries
@@ -22,5 +14,22 @@ This header is to be used in every source file:
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-```
-You can adapt comments as required per language (ie. The /**/ for C, gets swapped out for '#' for Python or Meson)
+#ifndef SHADER_HPP
+#define SHADER_HPP
+
+#include <glad/glad.h>
+#include <cstdint>
+
+namespace Crunch {
+
+class Shader {
+public:
+    char* load(const char* path);
+    char* tsrc;         // Temporary buffers to store shaders in. These get overwritten after each load call
+
+    uint32_t createShader(GLenum type, const char* source);
+};
+
+};
+
+#endif      // SHADER_HPP

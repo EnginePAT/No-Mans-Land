@@ -1,11 +1,3 @@
-# No-Mans-Land
-An open world game, combining Minecraft mechanics, with Rust/Tarkov/FS25/Arma graphics. Aim is to make it as AAA as possible, without using a commercial game engine.
-
-## TODO: Make the README.md more informative
-
-## Source File Header
-This header is to be used in every source file:
-```
 /*
  * Crunch Engine 3
  * Copyright 2026 Dodwell Industries
@@ -22,5 +14,27 @@ This header is to be used in every source file:
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-```
-You can adapt comments as required per language (ie. The /**/ for C, gets swapped out for '#' for Python or Meson)
+#ifndef COLLISION_HPP
+#define COLLISION_HPP
+
+#include <Crunch/physics/AABB.hpp>
+#include <Crunch/physics/RigidBody.hpp>
+#include <glm/glm.hpp>
+
+namespace Crunch::Physics {
+
+typedef struct CollisionInfo {
+    bool intersected;
+    glm::vec3 normal;
+    float depth;
+} CollisionInfo;
+
+class CollisionHandler {
+public:
+    CollisionInfo GetAABBCollision(const AABB* a, const AABB* b);
+    void ResolveCollision(RigidBody& a, RigidBody& b, const CollisionInfo& info);
+};
+
+};
+
+#endif      // COLISION_HPP
