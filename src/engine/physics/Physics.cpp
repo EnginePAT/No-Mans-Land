@@ -23,7 +23,7 @@ namespace Crunch::Physics {
 
 // Helper to grab height cleanly - Standard Positive Height Field
 float GetTerrainHeight(uint32_t seed, float x, float z) {
-    float heightScale = -4.f;
+    float heightScale = 4.f;
     return heightScale * Crunch::TerrainTools::GenerateIndividualNoiseValue(seed, x, z);
 }
 

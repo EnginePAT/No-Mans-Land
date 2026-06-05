@@ -30,30 +30,32 @@ Quad::Quad(float w, float h, glm::vec3 p, glm::vec4 c) {
     float halfW = w / 2.0f;
     float halfH = h / 2.0f;
 
-    // Create the vertices and push them into the vertices structure
     // Create the vertices centered around (0,0) locally using w and h
     // Top Right
-    struct Crunch::Vertex v1 = { 
-        glm::vec3( halfW,  halfH, 0.0f), 
-        c, 
+    Crunch::Vertex v1 = {
+        glm::vec3( halfW, 0.0f,  halfH),
+        c,
         glm::vec2(1.0f, 1.0f)
     };
+
     // Bottom Right
-    struct Crunch::Vertex v2 = { 
-        glm::vec3( halfW, -halfH, 0.0f), 
-        c, 
+    Crunch::Vertex v2 = {
+        glm::vec3( halfW, 0.0f, -halfH),
+        c,
         glm::vec2(1.0f, 0.0f)
     };
+
     // Bottom Left
-    struct Crunch::Vertex v3 = { 
-        glm::vec3(-halfW, -halfH, 0.0f), 
-        c, 
+    Crunch::Vertex v3 = {
+        glm::vec3(-halfW, 0.0f, -halfH),
+        c,
         glm::vec2(0.0f, 0.0f)
     };
+
     // Top Left
-    struct Crunch::Vertex v4 = { 
-        glm::vec3(-halfW,  halfH, 0.0f), 
-        c, 
+    Crunch::Vertex v4 = {
+        glm::vec3(-halfW, 0.0f,  halfH),
+        c,
         glm::vec2(0.0f, 1.0f)
     };
     vertices.push_back(v1);

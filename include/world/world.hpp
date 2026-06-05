@@ -18,11 +18,13 @@
 #define WORLD_HPP
 
 
-#include "world/terrain.hpp"
+#include <world/Terrain.hpp>
 #include <Crunch/core/renderer/Mesh.hpp>
 #include <vector>
 
 namespace nml {         // nml = No Mans Land
+
+constexpr float WORLD_SIZE = 256.0f;
 
 class World {
 public:

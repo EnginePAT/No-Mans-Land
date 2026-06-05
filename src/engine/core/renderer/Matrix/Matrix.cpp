@@ -14,10 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "Crunch/core/renderer/Mesh.hpp"
 #include <Crunch/core/renderer/Matrix/MatrixFrustumCulling.hpp>
 #include <Crunch/core/renderer/Matrix/Matrix.hpp>
+#include <string>
+#include <unordered_map>
+#include <utility>
 
 namespace Crunch::Matrix {
+
+std::unordered_map<std::string, Crunch::Mesh> ModelCache::cache;
+
+Crunch::Mesh& ModelCache::Get(const std::string &key) {
+    auto it = cache.find(key);
+    if (it != cache.end()) {
+        return it->second;
+    }
+
+    throw std::runtime_error("ModelCache miss: " + key);
+}
+
+void ModelCache::Set(const std::string &key, const Crunch::Mesh mesh) {
+    cache.insert_or_assign(key, mesh);
+}
 
 RenderList Build(const std::vector<Mesh>& meshes, const struct FrameData* frame) {
     RenderList list;

@@ -14,13 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "Crunch/core/renderer/Matrix/Matrix.hpp"
 #include <Crunch/core/renderer/Mesh.hpp>
-#include "world/Terrain.hpp"
+#include <world/Terrain.hpp>
 #include <cstddef>
-#include <random>
-#include <world/world.hpp>
+#include <world/World.hpp>
+#include <FastNoiseLite.h>
 
 namespace nml {
+
+static FastNoiseLite tree_noise;
 
 std::vector<Crunch::Mesh> World::Generate_World_Meshes() {
     std::vector<Crunch::Mesh> meshes;
@@ -31,12 +34,55 @@ std::vector<Crunch::Mesh> World::Generate_World_Meshes() {
     }
 
     // Procedural tree generation goes here
-    std::mt19937 rng(SEED);
-    constexpr int TREE_COUNT = 500;
+    tree_noise.SetSeed(SEED);
+    tree_noise.SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
+    tree_noise.SetFrequency(0.02f);     // Lower = bigger forests. Later this will be controlled by a biome system
 
-    std::uniform_real_distribution<float> xDist(-512.f, 512.f);
-    std::uniform_real_distribution<float> zDist(-512.f, 512.f);
-    std::uniform_real_distribution<float> sDist(0.8f, 1.4f);
+    // Make the trees feel less "blobby"
+    tree_noise.SetFractalType(FastNoiseLite::FractalType_FBm);
+    tree_noise.SetFractalOctaves(3);
+    tree_noise.SetFractalGain(0.5f);
+
+    constexpr int TREE_SAMPLES = 1000;
+
+    for (int i = 0; i < TREE_SAMPLES; i++) {
+        float x = tree_noise.GetNoise((float)i * 12.9898f, 78.233f);
+        float z = tree_noise.GetNoise((float)i * 93.9898f, 12.233f);
+
+        x = (x + 1.0f) * 0.5f * 256.0f;
+        z = (z + 1.0f) * 0.5f * 256.0f;
+
+        float density = tree_noise.GetNoise(x, z);
+
+        float d = (density + 1.0f) * 0.5f;
+
+        if (d < 0.55f) continue;        // No trees here
+
+        float y = terrain.GetHeightAt({x, z});
+        float eps = 0.5f;
+        float hL = terrain.GetHeightAt({x - eps, z});
+        float hR = terrain.GetHeightAt({x + eps, z});
+        float hD = terrain.GetHeightAt({x, z - eps});
+        float hU = terrain.GetHeightAt({x, z + eps});
+        glm::vec3 n = glm::normalize(glm::vec3(
+            hL - hR,
+            hD - hU,
+            2.0f * eps
+        ));
+
+        float slope = 1.0f - n.z; // rough slope metric
+        if (slope > 0.35f) continue;
+
+        float scale = 0.8f + (d * 2.8f);
+        // WorldElements::Tree tree;
+        // tree.Create({x, y, z}, glm::vec3(scale));
+        // meshes.push_back(tree.GetMesh());
+        Crunch::Mesh& treeMesh = Crunch::Matrix::ModelCache::Get("tree_pine");
+        Crunch::Mesh instance = treeMesh;
+        instance.setPosition({x, y, z});
+        instance.setScale(glm::vec3(scale));
+        meshes.push_back(instance);
+    }
 
     return meshes;
 }

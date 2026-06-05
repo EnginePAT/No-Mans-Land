@@ -18,6 +18,8 @@
 #define MATRIX_HPP
 
 #include <cstdint>
+#include <string>
+#include <unordered_map>
 #include <vector>
 #include <glm/glm.hpp>
 #include <Crunch/core/renderer/Mesh.hpp>
@@ -51,6 +53,14 @@ struct RenderList {
 };
 
 RenderList Build(const std::vector<Mesh>& meshes, const FrameData* frame);
+
+class ModelCache {
+private:
+    static std::unordered_map<std::string, Crunch::Mesh> cache;
+public:
+    static Crunch::Mesh& Get(const std::string& key);
+    static void Set(const std::string& key, const Crunch::Mesh mesh);
+};
 
 };
 

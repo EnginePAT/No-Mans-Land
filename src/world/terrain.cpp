@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "world/World.hpp"
 #include <cstdint>
 #include <vector>
 #include <world/Terrain.hpp>
@@ -39,10 +40,10 @@ void DisplaceTerrainVertices(Crunch::Mesh& mesh, uint32_t seed) {
         // Calculate continuous world space coordinates
         // Local Y maps to World Z due to the 90-degree X-rotation template
         float worldX = chunkWorldPos.x + vertex.position.x;
-        float worldZ = chunkWorldPos.z + vertex.position.y;
+        float worldZ = chunkWorldPos.z + vertex.position.z;
 
         float y = GetHeightAt(seed, worldX, worldZ);
-        vertex.position.z = y;
+        vertex.position.y = y;
 
         constexpr float epsilon = 0.1f;
         float heightLeft  = GetHeightAt(seed, worldX - epsilon, worldZ);
@@ -52,13 +53,12 @@ void DisplaceTerrainVertices(Crunch::Mesh& mesh, uint32_t seed) {
 
         glm::vec3 rawNormal;
         rawNormal.x = heightLeft - heightRight;
-        rawNormal.y = heightDown - heightUp;
-        rawNormal.z = 2.0f * epsilon; 
-
+        rawNormal.y = 2.0f * epsilon;
+        rawNormal.z = heightDown - heightUp;
         vertex.normal = glm::normalize(rawNormal);
 
         // Simple height-based color mapping for a clean look
-        float norm = (y + 5.0f) / 10.0f;
+        float norm = glm::clamp(y / 8.0f, 0.0f, 1.0f);
         vertex.color = glm::vec4(0.1f, norm * 0.6f + 0.2f, 0.1f, 1.0f);
     }
 }
@@ -81,14 +81,14 @@ std::vector<Crunch::Mesh> Terrain::Generate(uint32_t _seed) {
         printf("failed to load texture\n");
     }
 
-    for (float x = 0; x < 256.0f; x += 8.0f) {        // 16x16px chunk size
-        for (float y = 0; y < 256.0f; y += 8.0f) {
+    for (float x = 0; x < WORLD_SIZE; x += 8.0f) {        // 16x16px chunk size
+        for (float y = 0; y < WORLD_SIZE; y += 8.0f) {
             // 8x8 grid of "chunks" (64 total chunks)
             Crunch::Mesh mesh;
             mesh.create(quad.vertices, quad.indices);
             mesh.resetModel();
             mesh.setPosition(glm::vec3(x, 0.0f, y));
-            mesh.setRotation(90.0f, glm::vec3(1.0f, 0, 0));
+            // mesh.setRotation(90.0f, glm::vec3(1.0f, 0, 0));
             mesh.setTexture(&texture, _prog);
 
             // Subdivide the mesh with a depth of 8 (Each quad gets subdivided 8 times)
