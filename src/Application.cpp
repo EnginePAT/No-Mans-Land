@@ -58,6 +58,7 @@ int NMLApp::Init() {
     tree.create(vertices, indices);
     Crunch::Matrix::ModelCache::Set("tree_pine", tree);
 
+    world.Init(renderer.shaderProgram);
     std::vector<Crunch::Mesh> tmesh = world.Generate_World_Meshes();
     for (const auto& tm : tmesh) {
         meshes.push_back(tm);

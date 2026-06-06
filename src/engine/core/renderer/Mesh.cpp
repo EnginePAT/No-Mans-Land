@@ -69,9 +69,10 @@ void Mesh::create(std::vector<struct Vertex> verts, std::vector<uint32_t> idxs) 
 }
 
 void Mesh::setTexture(Texture* tex, uint32_t prog) {
-    glUniform1i(glGetUniformLocation(prog, "tex"), 0);
-    glActiveTexture(GL_TEXTURE0);
-    tex->bind();
+    // glUniform1i(glGetUniformLocation(prog, "tex"), 0);
+    // glActiveTexture(GL_TEXTURE0);
+    // tex->bind();
+    m_Texture = tex;
 }
 
 void Mesh::resetModel() {

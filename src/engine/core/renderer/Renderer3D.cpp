@@ -52,6 +52,7 @@ bool Renderer3D::Init(uint32_t vs, uint32_t fs) {
     modlLoc = glGetUniformLocation(shaderProgram, "model");
     viewLoc = glGetUniformLocation(shaderProgram, "view");
     projLoc = glGetUniformLocation(shaderProgram, "projection");
+    texLoc = glGetUniformLocation(shaderProgram, "tex");
 
     return true;
 }
@@ -71,6 +72,12 @@ void Renderer3D::Draw(Matrix::RenderList* list) {
             // If resolveVAO returns 0, it means that the mesh with correct ID could not be found
             // Therefore an error needs to be thrown
             std::cout << "Invalid VAO!" << std::endl;
+        }
+
+        if (list->commands[i].texture != nullptr) {
+            glActiveTexture(GL_TEXTURE0);
+            list->commands[i].texture->bind();
+            glUniform1i(texLoc, 0); // Point the sampler unit to GL_TEXTURE0
         }
 
         glBindVertexArray(vao);

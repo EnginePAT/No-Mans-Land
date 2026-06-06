@@ -34,7 +34,7 @@ Crunch::Mesh& ModelCache::Get(const std::string &key) {
     throw std::runtime_error("ModelCache miss: " + key);
 }
 
-void ModelCache::Set(const std::string &key, const Crunch::Mesh mesh) {
+void ModelCache::Set(const std::string &key, const Crunch::Mesh& mesh) {
     cache.insert_or_assign(key, mesh);
 }
 
@@ -51,6 +51,7 @@ RenderList Build(const std::vector<Mesh>& meshes, const struct FrameData* frame)
             newCommand.meshID = mesh.id;
             newCommand.materialID = 0;
             newCommand.model = mesh.model;                  // Crunch doesn't have support for Materials just yet
+            newCommand.texture = mesh.m_Texture;            // Store the texture pointer so we can have multiple textures
 
             list.commands.push_back(newCommand);
         }

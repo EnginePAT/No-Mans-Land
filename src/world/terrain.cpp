@@ -65,6 +65,10 @@ void DisplaceTerrainVertices(Crunch::Mesh& mesh, uint32_t seed) {
 
 void Terrain::Init(uint32_t prog) {
     _prog = prog;
+
+    if (!ground_tex.load("assets/textures/Ground.jpg")) {
+        printf("failed to load texture\n");
+    }
 }
 
 std::vector<Crunch::Mesh> Terrain::Generate(uint32_t _seed) {
@@ -76,11 +80,6 @@ std::vector<Crunch::Mesh> Terrain::Generate(uint32_t _seed) {
     std::vector<Crunch::Mesh> meshes;
     seed = _seed;
 
-    Crunch::Texture texture;
-    if (!texture.load("assets/Ground.jpg")) {
-        printf("failed to load texture\n");
-    }
-
     for (float x = 0; x < WORLD_SIZE; x += 8.0f) {        // 16x16px chunk size
         for (float y = 0; y < WORLD_SIZE; y += 8.0f) {
             // 8x8 grid of "chunks" (64 total chunks)
@@ -89,7 +88,7 @@ std::vector<Crunch::Mesh> Terrain::Generate(uint32_t _seed) {
             mesh.resetModel();
             mesh.setPosition(glm::vec3(x, 0.0f, y));
             // mesh.setRotation(90.0f, glm::vec3(1.0f, 0, 0));
-            mesh.setTexture(&texture, _prog);
+            mesh.setTexture(&ground_tex, _prog);
 
             // Subdivide the mesh with a depth of 8 (Each quad gets subdivided 8 times)
             Crunch::Matrix::Subdivide(&mesh, 4);

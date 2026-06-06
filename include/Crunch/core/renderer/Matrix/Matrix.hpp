@@ -30,6 +30,7 @@ typedef struct {
     glm::mat4 model;
     uint32_t meshID;
     uint32_t materialID;
+    Crunch::Texture* texture;
 } DrawCommand;
 
 
@@ -59,7 +60,7 @@ private:
     static std::unordered_map<std::string, Crunch::Mesh> cache;
 public:
     static Crunch::Mesh& Get(const std::string& key);
-    static void Set(const std::string& key, const Crunch::Mesh mesh);
+    static void Set(const std::string& key, const Crunch::Mesh& mesh);
 };
 
 };

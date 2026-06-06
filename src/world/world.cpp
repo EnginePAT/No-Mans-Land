@@ -16,6 +16,8 @@
  */
 #include "Crunch/core/renderer/Matrix/Matrix.hpp"
 #include <Crunch/core/renderer/Mesh.hpp>
+#include <cstdint>
+#include <stdexcept>
 #include <world/Terrain.hpp>
 #include <cstddef>
 #include <world/World.hpp>
@@ -24,6 +26,16 @@
 namespace nml {
 
 static FastNoiseLite tree_noise;
+
+void World::Init(uint32_t _prog) {
+    prog = _prog;
+
+    terrain.Init(prog);
+
+    if (!pine_tree_trunk_tex.load("assets/textures/pine_tree_trunk.jpg")) {
+        throw std::runtime_error("error: could not load texture!");
+    }
+}
 
 std::vector<Crunch::Mesh> World::Generate_World_Meshes() {
     std::vector<Crunch::Mesh> meshes;
@@ -73,14 +85,13 @@ std::vector<Crunch::Mesh> World::Generate_World_Meshes() {
         float slope = 1.0f - n.z; // rough slope metric
         if (slope > 0.35f) continue;
 
-        float scale = 0.8f + (d * 2.8f);
-        // WorldElements::Tree tree;
-        // tree.Create({x, y, z}, glm::vec3(scale));
-        // meshes.push_back(tree.GetMesh());
+        float scale = 4.8f + (d * 3.8f);
+
         Crunch::Mesh& treeMesh = Crunch::Matrix::ModelCache::Get("tree_pine");
         Crunch::Mesh instance = treeMesh;
         instance.setPosition({x, y, z});
         instance.setScale(glm::vec3(scale));
+        instance.setTexture(&pine_tree_trunk_tex, prog);
         meshes.push_back(instance);
     }
 

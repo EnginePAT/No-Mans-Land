@@ -39,6 +39,7 @@ public:
     unsigned int viewLoc;
     unsigned int modlLoc;
     unsigned int projLoc;
+    unsigned int texLoc;
 };
 
 }

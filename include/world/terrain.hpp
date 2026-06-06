@@ -28,6 +28,7 @@ namespace nml {
 class Terrain {
 private:
     uint32_t _prog;
+    Crunch::Texture ground_tex;
 public:
     void Init(uint32_t prog);
     std::vector<Crunch::Mesh> Generate(uint32_t seed);

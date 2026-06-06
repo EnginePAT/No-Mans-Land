@@ -18,6 +18,8 @@
 #define WORLD_HPP
 
 
+#include "Crunch/core/Texture.hpp"
+#include <cstdint>
 #include <world/Terrain.hpp>
 #include <Crunch/core/renderer/Mesh.hpp>
 #include <vector>
@@ -27,7 +29,12 @@ namespace nml {         // nml = No Mans Land
 constexpr float WORLD_SIZE = 256.0f;
 
 class World {
+private:
+    uint32_t prog;
+    Crunch::Texture pine_tree_trunk_tex;
+
 public:
+    void Init(uint32_t _prog);
     std::vector<Crunch::Mesh> Generate_World_Meshes();
     Terrain terrain;
 };

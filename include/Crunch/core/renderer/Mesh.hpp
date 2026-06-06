@@ -47,6 +47,8 @@ public:
     uint32_t vcount;                // How many vertices in the vector
     uint32_t icount;                // How many indices in the vector
 
+    Texture* m_Texture = nullptr;   // Track the mesh's assigned texture
+
     uint32_t id;
 
     unsigned int VAO;
