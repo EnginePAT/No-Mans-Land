@@ -1,4 +1,4 @@
-project('Crunch Engine 3', 'cpp', 'c',
+project('Crunch Engine 3', ['cpp', 'c', 'objc'],
     version: '3.0.1',
     default_options: [
         'cpp_std=c++17',
@@ -29,6 +29,28 @@ executable('no-mans-land',
         'src/engine/core/Texture.cpp',
         'src/engine/core/renderer/MeshRegistry.cpp',
         'src/engine/Noise.cpp',
+
+        # Vulkan Backend
+        'src/engine/core/backend/vulkan/vulkan_renderer3d.cpp',
+        'src/engine/core/backend/vulkan/vulkan_mesh.cpp',
+        'src/engine/core/backend/vulkan/vulkan_texture.cpp',
+        'src/engine/core/backend/vulkan/vulkan_window.cpp',
+
+        # OpenGL Backend
+        'src/engine/core/backend/opengl/opengl_renderer3d.cpp',
+        'src/engine/core/backend/opengl/opengl_mesh.cpp',
+        'src/engine/core/backend/opengl/opengl_texture.cpp',
+        'src/engine/core/backend/opengl/opengl_window.cpp',
+
+        # Metal Backend
+        'src/engine/core/backend/metal/metal_renderer3d.cpp',
+        'src/engine/core/backend/metal/metal_mesh.cpp',
+        'src/engine/core/backend/metal/metal_texture.cpp',
+        'src/engine/core/backend/metal/metal_window.cpp',
+        'src/engine/core/backend/metal/objc/metal_renderer3d.m',
+        'src/engine/core/backend/metal/objc/metal_mesh.m',
+        'src/engine/core/backend/metal/objc/metal_texture.m',
+        'src/engine/core/backend/metal/objc/metal_window.m',
 
         'src/engine/core/renderer/Matrix/Matrix.cpp',
         'src/engine/core/renderer/Matrix/MatrixSubdivide.cpp',
