@@ -14,34 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef OPENGL_RENDERER3D_HPP
-#define OPENGL_RENDERER3D_HPP
+#ifndef OPENGL_HPP
+#define OPENGL_HPP
 
-#include <cstdint>
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <Crunch/core/renderer/Mesh.hpp>
-#include <Crunch/core/renderer/Shader.hpp>
-#include <Crunch/core/Camera.hpp>
-#include <Crunch/core/renderer/Matrix/Matrix.hpp>
+#include <Crunch/core/backend/opengl/opengl_renderer3d.hpp>
+#include <Crunch/core/backend/opengl/opengl_window.hpp>
+#include <Crunch/core/backend/opengl/opengl_mesh.hpp>
+#include <Crunch/core/backend/opengl/opengl_texture.hpp>
 
 namespace Crunch::BACKEND {
 
-class OpenGL_Renderer3D {
+class OpenGL_Backend {
 public:
-    bool Init(uint32_t vs, uint32_t fs);
-    void Draw(Matrix::RenderList* list);
-
-    unsigned int shaderProgram;
-    unsigned int vertexShader;
-    unsigned int fragmentShader;
-
-    unsigned int viewLoc;
-    unsigned int modlLoc;
-    unsigned int projLoc;
-    unsigned int texLoc;
+    OpenGL_WINDOW window;
+    OpenGL_Renderer3D renderer3d;
 };
 
 };
 
-#endif      // OPENGL_RENDERER3D_HPP
+#endif      // OPENGL_HPP

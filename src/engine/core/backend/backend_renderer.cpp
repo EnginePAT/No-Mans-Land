@@ -14,25 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "Crunch/core/backend/backend_context.hpp"
-#include <Crunch/core/renderer/Matrix/Matrix.hpp>
-#include <Crunch/core/renderer/MeshRegistry.hpp>
-#include <Crunch/core/Window.hpp>
-#include <Crunch/core/Camera.hpp>
-#include <Crunch/core/renderer/Mesh.hpp>
-#include <Crunch/core/renderer/Renderer3D.hpp>
-#include <Crunch/core/renderer/Shader.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <cstdint>
+#include <Crunch/core/backend/backend_context.hpp>
 
-namespace Crunch {
+namespace Crunch::BACKEND::RenderHandler {
 
-bool Renderer3D::Init(uint32_t vs, uint32_t fs) {
-    return BACKEND::RenderHandler::BackendInit(vs, fs);
+bool BackendInit(uint32_t vs, uint32_t fs) {
+    bool ret = false;
+
+    switch (backend) {
+        case CRUNCH_BACKEND_OPENGL: {
+            ret = backends.opengl.renderer3d.Init(vs, fs);
+            break;
+        }
+
+        default: {
+            break;
+        }
+    }
+
+    return ret;
 }
 
-void Renderer3D::Draw(Matrix::RenderList* list) {
-    BACKEND::RenderHandler::BackendDraw(list);
+void BackendDraw(Matrix::RenderList *list) {
+    switch (backend) {
+        case CRUNCH_BACKEND_OPENGL: {
+            backends.opengl.renderer3d.Draw(list);
+            break;
+        }
+
+        default: {
+            break;
+        }
+    }
 }
 
 };

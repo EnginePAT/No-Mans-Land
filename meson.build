@@ -30,6 +30,11 @@ executable('no-mans-land',
         'src/engine/core/renderer/MeshRegistry.cpp',
         'src/engine/Noise.cpp',
 
+        # Backend handler
+        'src/engine/core/backend/backend_context.cpp',
+        'src/engine/core/backend/backend_window.cpp',
+        'src/engine/core/backend/backend_renderer.cpp',
+
         # Vulkan Backend
         'src/engine/core/backend/vulkan/vulkan_renderer3d.cpp',
         'src/engine/core/backend/vulkan/vulkan_mesh.cpp',

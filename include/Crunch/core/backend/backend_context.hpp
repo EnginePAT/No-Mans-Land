@@ -17,6 +17,9 @@
 #ifndef BACKEND_CONTEXT_HPP
 #define BACKEND_CONTEXT_HPP
 
+#include <glm/glm.hpp>
+#include <Crunch/core/backend/opengl/opengl.hpp>
+
 // Backend Types
 // By default, this will be set to Vulkan, but can be changed at anytime
 #define CRUNCH_BACKEND_OPENGL   0       // Legacy support. Doesn't have MDI.
@@ -24,14 +27,49 @@
 #define CRUNCH_BACKEND_METAL    2       // Apple platforms
 #define CRUNCH_BACKEND_DIRECTX  3       // Windows platforms
 
-namespace Crunch::BACKEND::Handler {
+namespace Crunch::BACKEND {
+
+struct Backends {
+    OpenGL_Backend opengl;
+};
 
 // This will be Vulkan for release
 inline int backend = CRUNCH_BACKEND_OPENGL;
+inline struct Backends backends;
 
 bool Configure_Crunch_Backend(int type);
 bool Initialize_Crunch_Backend();
 void Terminate_Crunch_Backend();
+
+
+/*
+    Window Utilities to wrap the massive switch/case statements
+*/
+namespace WindowHandler {
+
+bool BackendInit();
+bool BackendCreate(int w, int h, const char* t);
+bool BackendWindowShouldClose();
+void BackendUpdate();
+void BackendClear(glm::vec4 c);
+void BackendTerminate();
+
+GLFWwindow* BackendGetWindow();
+float BackendGetDeltaTime();
+
+}           // namespace WindowHandler
+
+
+/*
+    Renderer3D utilities to wrap the massive switch case/statements
+*/
+namespace RenderHandler {
+
+// Renderer3D & Renderer2D functions go here
+bool BackendInit(uint32_t vs, uint32_t fs);
+void BackendDraw(Matrix::RenderList* list);
+
+};          // namespace RenderHandler
 
 
 }           // namespace Crunch::BACKEND::Handler

@@ -15,5 +15,55 @@
  * limitations under the License.
  */
 #include <Crunch/core/backend/backend_context.hpp>
+#include <cstddef>
 
-namespace Crunch::BACKEND::Handler {};
+namespace Crunch::BACKEND {
+
+bool Configure_Crunch_Backend(int type) {
+    switch (type) {
+        case CRUNCH_BACKEND_OPENGL: {
+            // Use the OpenGL backend
+            backend = CRUNCH_BACKEND_OPENGL;
+            break;
+        }
+        case CRUNCH_BACKEND_VULKAN: {
+            // Use the Vulkan backend
+            backend = CRUNCH_BACKEND_VULKAN;
+            break;
+        }
+        case CRUNCH_BACKEND_METAL: {
+            // Use the Metal backend
+            backend = CRUNCH_BACKEND_METAL;
+            break;
+        }
+        case CRUNCH_BACKEND_DIRECTX: {
+            // Use the Direct X 12 (DX12) backend
+            backend = CRUNCH_BACKEND_DIRECTX;
+            break;
+        }
+        default: {
+            // Unknown
+            break;
+        }
+    }
+
+    return true;
+}
+
+bool Initialize_Crunch_Backend() {
+    if (backend == CRUNCH_BACKEND_OPENGL) {
+        backends.opengl.window.Init();
+    } else if (backend == CRUNCH_BACKEND_METAL) {
+        // backend = CRUNCH_BACKEND_METAL;
+    } else if (backend == CRUNCH_BACKEND_VULKAN) {
+        // backend = CRUNCH_BACKEND_VULKAN;
+    } else if (backend == CRUNCH_BACKEND_DIRECTX) {
+        // backend = CRUNCH_BACKEND_DIRECTX;
+    } else {
+        return false;
+    }
+
+    return true;
+}
+
+};
