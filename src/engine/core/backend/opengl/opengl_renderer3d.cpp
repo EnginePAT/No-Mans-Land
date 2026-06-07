@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "Crunch/core/backend/opengl/opengl_mesh.hpp"
 #include <Crunch/core/backend/opengl/opengl_renderer3d.hpp>
 #include <Crunch/core/renderer/Matrix/Matrix.hpp>
 #include <Crunch/core/renderer/MeshRegistry.hpp>
@@ -66,8 +67,9 @@ void OpenGL_Renderer3D::Draw(Matrix::RenderList* list) {
     for (int i = 0; i < list->commands.size(); i++) {
         glUniformMatrix4fv(modlLoc, 1, GL_FALSE, glm::value_ptr(list->commands[i].model));
         
-        uint32_t idx_count = Registry::MeshRegistry::resolveIDX(list->commands[i].meshID);
-        uint32_t vao = Registry::MeshRegistry::resolveVAO(list->commands[i].meshID);
+        uint32_t idx_count = Registry::MeshRegistry::Get(list->commands[i].meshID).icount;
+        OpenGL_Mesh mesh = s_glMeshes[list->commands[i].meshID];
+        uint32_t vao = mesh.vao;
         if (vao == 0) {
             // If resolveVAO returns 0, it means that the mesh with correct ID could not be found
             // Therefore an error needs to be thrown
@@ -80,10 +82,18 @@ void OpenGL_Renderer3D::Draw(Matrix::RenderList* list) {
             glUniform1i(texLoc, 0); // Point the sampler unit to GL_TEXTURE0
         }
 
-        glBindVertexArray(vao);
+        // glBindVertexArray(vao);
         glDrawElements(GL_TRIANGLES, idx_count, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
+}
+
+void OpenGL_Renderer3D::SetGLMesh(Mesh* mesh) {
+    OpenGL_Mesh newMesh;
+    newMesh.id = mesh->id;
+    newMesh.Create(mesh);
+
+    s_glMeshes[mesh->id] = newMesh;
 }
 
 };

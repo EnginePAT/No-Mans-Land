@@ -66,4 +66,21 @@ bool Initialize_Crunch_Backend() {
     return true;
 }
 
+namespace RenderHandler {
+
+void BackendSetMeshCache(Mesh *mesh) {
+    switch (backend) {
+        case CRUNCH_BACKEND_OPENGL: {
+            backends.opengl.renderer3d.SetGLMesh(mesh);
+            break;
+        }
+
+        default: {
+            break;
+        }
+    }
+}
+
+};
+
 };

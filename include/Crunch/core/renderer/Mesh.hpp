@@ -18,7 +18,6 @@
 #define MESH_HPP
 
 #include <Crunch/core/Texture.hpp>
-#include <Crunch/core/renderer/MeshRegistry.hpp>
 #include <glm/glm.hpp>
 #include <vector>
 #include <cstdint>
@@ -33,30 +32,27 @@ struct Vertex {
 };
 
 class Mesh {
+private:
+    void Rebuild();
 public:
-    void create(std::vector<struct Vertex> verts, std::vector<uint32_t> idxs);
-    void setTexture(Texture* tex, uint32_t prog);
-    void setRotation(float degrees, glm::vec3 axis);
-    void setPosition(glm::vec3 newPos);
-    void setScale(glm::vec3 newScale);
-    void resetModel();
-    void updateBuffers(const std::vector<Vertex>& verts, const std::vector<uint32_t>& inds);
+    void SetPosition(glm::vec3 newPos);
+    void SetScale(glm::vec3 newScale);
+    void SetRotation(glm::vec3 newRot);
+    void SetTexture(Texture* tex);
 
-    std::vector<struct Vertex> vertices;
+    std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
-    uint32_t vcount;                // How many vertices in the vector
-    uint32_t icount;                // How many indices in the vector
+    uint32_t icount;
+    uint32_t vcount;
 
-    Texture* m_Texture = nullptr;   // Track the mesh's assigned texture
-
-    uint32_t id;
-
-    unsigned int VAO;
-    unsigned int VBO;
-    unsigned int EBO;
+    Texture* m_Texture;
     glm::mat4 model;
 
     glm::vec3 position;
+    glm::vec3 scale;
+    glm::vec3 rotation;
+
+    uint32_t id;
 };
 
 };

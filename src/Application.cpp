@@ -45,17 +45,13 @@ int NMLApp::Init() {
     
     renderer.Init(vs, fs);
     camera.init(CRUNCH_CAMERA_TYPE_PERSPECTIVE, aspect, 45.f, 0.01f, 1000.f);
-    // terrain.Init(renderer.shaderProgram);
-
-    // WorldElements::Tree tree;
-    // tree.Create(glm::vec3(1.0f, world.terrain.GetHeightAt(glm::vec2(1.0f, 0.0f)), 0.0f), glm::vec3(4.0f));
-    // meshes.push_back(tree.GetMesh());
 
     std::vector<Crunch::Vertex> vertices;
     std::vector<uint32_t> indices;
     Crunch::Matrix::LoadModelData("assets/models/tree_pine.glb", vertices, indices);
     Crunch::Mesh tree;
-    tree.create(vertices, indices);
+    tree.vertices = vertices;
+    tree.indices = indices;
     Crunch::Matrix::ModelCache::Set("tree_pine", tree);
 
     world.Init(renderer.shaderProgram);

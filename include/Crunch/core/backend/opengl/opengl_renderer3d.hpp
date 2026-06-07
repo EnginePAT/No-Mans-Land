@@ -17,6 +17,7 @@
 #ifndef OPENGL_RENDERER3D_HPP
 #define OPENGL_RENDERER3D_HPP
 
+#include "Crunch/core/backend/opengl/opengl_mesh.hpp"
 #include <cstdint>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -28,9 +29,12 @@
 namespace Crunch::BACKEND {
 
 class OpenGL_Renderer3D {
+private:
+    std::unordered_map<uint32_t, OpenGL_Mesh> s_glMeshes;
 public:
     bool Init(uint32_t vs, uint32_t fs);
     void Draw(Matrix::RenderList* list);
+    void SetGLMesh(Mesh* mesh);
 
     unsigned int shaderProgram;
     unsigned int vertexShader;

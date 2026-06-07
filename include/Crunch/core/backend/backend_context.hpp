@@ -68,9 +68,9 @@ namespace RenderHandler {
 // Renderer3D & Renderer2D functions go here
 bool BackendInit(uint32_t vs, uint32_t fs);
 void BackendDraw(Matrix::RenderList* list);
+void BackendSetMeshCache(Mesh* mesh);
 
 };          // namespace RenderHandler
-
 
 }           // namespace Crunch::BACKEND::Handler
 

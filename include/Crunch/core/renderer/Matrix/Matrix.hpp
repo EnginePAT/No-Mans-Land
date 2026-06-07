@@ -53,10 +53,6 @@ struct RenderList {
     int id_count;
 };
 
-struct MDICommand {
-    
-};
-
 RenderList Build(const std::vector<Mesh>& meshes, const FrameData* frame);
 
 class ModelCache {

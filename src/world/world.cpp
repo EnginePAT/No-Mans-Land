@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 #include "Crunch/core/renderer/Matrix/Matrix.hpp"
+#include "Crunch/core/renderer/MeshRegistry.hpp"
 #include <Crunch/core/renderer/Mesh.hpp>
 #include <cstdint>
 #include <stdexcept>
@@ -88,10 +89,11 @@ std::vector<Crunch::Mesh> World::Generate_World_Meshes() {
         float scale = 4.8f + (d * 3.8f);
 
         Crunch::Mesh& treeMesh = Crunch::Matrix::ModelCache::Get("tree_pine");
+        Crunch::Registry::MeshRegistry::Set(i, &treeMesh);
         Crunch::Mesh instance = treeMesh;
-        instance.setPosition({x, y, z});
-        instance.setScale(glm::vec3(scale));
-        instance.setTexture(&pine_tree_trunk_tex, prog);
+        instance.SetPosition({x, y, z});
+        instance.SetScale(glm::vec3(scale));
+        instance.SetTexture(&pine_tree_trunk_tex);
         meshes.push_back(instance);
     }
 

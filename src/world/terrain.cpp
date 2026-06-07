@@ -84,17 +84,16 @@ std::vector<Crunch::Mesh> Terrain::Generate(uint32_t _seed) {
         for (float y = 0; y < WORLD_SIZE; y += 8.0f) {
             // 8x8 grid of "chunks" (64 total chunks)
             Crunch::Mesh mesh;
-            mesh.create(quad.vertices, quad.indices);
-            mesh.resetModel();
-            mesh.setPosition(glm::vec3(x, 0.0f, y));
+            // mesh.Create(quad.vertices, quad.indices);
+            mesh.SetPosition(glm::vec3(x, 0.0f, y));
             // mesh.setRotation(90.0f, glm::vec3(1.0f, 0, 0));
-            mesh.setTexture(&ground_tex, _prog);
+            mesh.SetTexture(&ground_tex);
 
             // Subdivide the mesh with a depth of 8 (Each quad gets subdivided 8 times)
             Crunch::Matrix::Subdivide(&mesh, 4);
 
             DisplaceTerrainVertices(mesh, seed);
-            mesh.updateBuffers(mesh.vertices, mesh.indices);
+            // mesh.updateBuffers(mesh.vertices, mesh.indices);
 
             meshes.push_back(mesh);
         }

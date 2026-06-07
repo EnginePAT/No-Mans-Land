@@ -29,12 +29,12 @@ void Tree::Create(glm::vec3 position, glm::vec3 scale) {
         return;
     }
 
-    mesh.create(tmp_vertices, tmp_indices);
-    mesh.resetModel();
+    // mesh.create(tmp_vertices, tmp_indices);
+    // mesh.resetModel();
 
     // Set the position and scale of the tree
-    mesh.setPosition(position);
-    mesh.setScale(scale);
+    mesh.SetPosition(position);
+    mesh.SetScale(scale);
 }
 
 Crunch::Mesh Tree::GetMesh() {

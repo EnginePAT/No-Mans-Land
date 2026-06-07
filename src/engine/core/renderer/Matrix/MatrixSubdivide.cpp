@@ -82,7 +82,7 @@ void Subdivide(Mesh *mesh, int n) {
 
     // Re-upload the perfectly synchronized arrays back to Crunch Engine 3's core mesh handles
     // mesh->create(currentVerts, currentIndices);
-    mesh->updateBuffers(currentVerts, currentIndices);
+    // mesh->updateBuffers(currentVerts, currentIndices);
 }
 
 };
